@@ -18,7 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.wishlistapp.data.DummyWish
 import com.example.wishlistapp.data.Wish
+import androidx.compose.foundation.lazy.items
+
 
 // home view is going to be one which holds our scaffold and allows us to have a certain structure for our application
 @Composable
@@ -46,6 +49,10 @@ fun HomeView(){
         LazyColumn(modifier = Modifier
             .fillMaxSize()
             .padding(it) ){
+            items(DummyWish.wishList){
+                // for my/user every wish create a WishItem
+                wish -> WishItem(wish = wish , onClick = {})
+            }
 
         }
 
