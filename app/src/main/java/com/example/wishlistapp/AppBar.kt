@@ -27,30 +27,64 @@ fun AppBarView(
     title : String , // title that the AppBar or TopBar is going to have
     onBackNavClicked: () -> Unit = {}
 ){
+//    val navigationIcon: (@Composable () -> Unit)? = {
+//        // but why we're using nullable here i.e "?" because we want sometime that navigationIcon should not appear (when we,re at different screen) that time we want navigationIcaon composable to be null
+////        if(title.contains("WishList")){
+//
+//                IconButton(onClick = { onBackNavClicked() }) {
+//                    Icon(
+//                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                        tint = Color.White,
+//                        contentDescription = null
+//                    )
+//
+//            }
+//
+//
+////        else {
+////            null
+////        }
+//
+//    }
+//
+//   TopAppBar(title = { Text(text = title ,
+//       color = colorResource(id = R.color.white),
+//       modifier = Modifier
+//           .padding(start = 4.dp)
+//           .heightIn(max = 24.dp) )
+//                     },
+//                            elevation = 3.dp, // elevation that we're adding to the app bar
+//                            backgroundColor = colorResource(id = R.color.app_bar_color), // app_bar_color is the color that I'm going to create by myself go to values->color.xml
+////                            navigationIcon =
+////                             navigationIcon is a composable so we can can create another conposable and then van pass it here
+//                            navigationIcon =if(title.contains("WishList")) navigationIcon else null
+//
+//       )
     val navigationIcon: (@Composable () -> Unit)? = {
-        // but why we're using nullable here i.e "?" because we want sometime that navigationIcon should not appear (when we,re at different screen) that time we want navigationIcaon composable to be null
-        IconButton(onClick  = {onBackNavClicked()}){
-           Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack ,
-               tint = Color.White ,
-               contentDescription = null)
+        IconButton(onClick = { onBackNavClicked() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                tint = Color.White,
+                contentDescription = null
+            )
         }
-    } // and now use this navigationIcon in the navigationIcon composable of our TopAppBar
+    }
 
-   TopAppBar(title = { Text(text = title ,
-       color = colorResource(id = R.color.white),
-       modifier = Modifier
-           .padding(start = 4.dp)
-           .heightIn(max = 24.dp) )
-                     },
-                            elevation = 3.dp, // elevation that we're adding to the app bar
-                            backgroundColor = colorResource(id = R.color.app_bar_color), // app_bar_color is the color that I'm going to create by myself go to values->color.xml
-//                            navigationIcon =
-//                             navigationIcon is a composable so we can can create another conposable and then van pass it here
-                            navigationIcon = navigationIcon
+    TopAppBar(
+        title = {
+            Text(
+                text = title,
+                color = colorResource(id = R.color.white),
+                modifier = Modifier
+                    .padding(4.dp)
+                    .heightIn(max = 24.dp)
+            )
+        },
+        elevation = 3.dp,
+        backgroundColor = colorResource(id = R.color.app_bar_color),
+        navigationIcon = if (!title.contains("WishList")) navigationIcon else null
+    )
 
-       )
-
-    
 
 
 }
