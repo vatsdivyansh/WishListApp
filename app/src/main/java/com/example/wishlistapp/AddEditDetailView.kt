@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +26,8 @@ import androidx.navigation.NavController
 
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import java.time.format.TextStyle
 
 @Composable
 fun AddEditDetailView(
@@ -42,6 +46,32 @@ fun AddEditDetailView(
             verticalArrangement = Arrangement.Center
         ) {
             Spacer(modifier = Modifier.height(10.dp))
+            WishTextField(label = "Title",
+                value = viewModel.wishTitleState,
+                onValueChanged = {
+                viewModel.onWishTitleChanged(it)
+            })
+            Spacer(modifier = Modifier.height(10.dp))
+            WishTextField(label = "Description",
+                value = viewModel.wishDescriptionState,
+                onValueChanged = {
+                    viewModel.onWishDescriptionChanged(it)
+                })
+            Spacer(modifier = Modifier.height(10.dp))
+            Button(onClick = {
+                if(viewModel.wishTitleState.isNotEmpty() && viewModel.wishDescriptionState.isNotEmpty()){
+                    // TODO UpdateWish
+                }
+                else {
+                    // TODO AddWish
+                }
+            }) {
+                Text(
+                    text = if(id != 0L) stringResource(id = R.string.update_wish ) else stringResource(
+                        id = R.string.add_wish
+                    ), style = androidx.compose.ui.text.TextStyle(fontSize = 18.sp)
+                )
+            }
         }
     }
 }
@@ -65,8 +95,8 @@ fun WishTextField(label: String ,
         )
     )
 }
-@Preview
-@Composable
-fun WishTestFieldPrev(){
-    WishTextField(label = "text" ,value = "text" , onValueChanged = {})
-}
+//@Preview
+//@Composable
+//fun WishTestFieldPrev(){
+//    WishTextField(label = "text" ,value = "text" , onValueChanged = {})
+//}

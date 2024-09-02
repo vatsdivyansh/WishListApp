@@ -21,11 +21,15 @@ import androidx.compose.ui.unit.dp
 import com.example.wishlistapp.data.DummyWish
 import com.example.wishlistapp.data.Wish
 import androidx.compose.foundation.lazy.items
+import androidx.navigation.NavController
 
 
 // home view is going to be one which holds our scaffold and allows us to have a certain structure for our application
 @Composable
-fun HomeView(){
+fun HomeView(
+    navController: NavController ,
+    viewModel: WishViewModel
+){
     // in jetpack compose scaffold is a layout structure that  provides a basic visual structure for our app , common UI elements --> top bar , bottonm bar , floating action button and a drawer
     // scaffold is ideal for creating standard app layout with a consistent structure , ensuring that all elements are corectly placed and behave s expected with minimun setup
     Scaffold(
@@ -39,7 +43,9 @@ fun HomeView(){
                 modifier = Modifier.padding(all = 20.dp) ,
                 contentColor = Color.Black ,
                 backgroundColor = Color.Gray ,
-                onClick = { /* add navigation to add screen here */ } ,
+                onClick = { /* add navigation to add screen here */
+                          navController.navigate(Screen.AddScreen.route) } ,
+
                 ) {
                     Icon(imageVector = Icons.Default.Add , contentDescription = null  )
 
