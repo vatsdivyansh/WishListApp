@@ -11,7 +11,7 @@ import com.example.wishlistapp.data.WishRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-
+// WishViewModel talks to the WishRepository which talks to the WishDao which knows the structure of data (i.e data class i.e Wish data class)
 class WishViewModel(
     private val wishRepository: WishRepository
 ): ViewModel() {
@@ -61,7 +61,4 @@ class WishViewModel(
 
         }
     }
-
-
-
 }

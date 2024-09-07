@@ -29,4 +29,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+// basic flow when we want to use room database ->
+// Step 1) create the data class in our case it is the "Wish Data Class"
+// Step 2) create the DAO class(in our case it it WishDao class ) in which we define the CRUD operations i.e how they are going to work for our particular class (in our case Wish Data class )
+// Step 3 ) once the Dao class is ready , create repository class (in our case it is WishRepository) --> in our case WishRepository class handles the CRUD operations
+
 
