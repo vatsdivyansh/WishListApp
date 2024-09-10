@@ -1,6 +1,9 @@
 package com.example.wishlistapp
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,8 +29,11 @@ import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.SwipeToDismiss
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.rememberDismissState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.navigation.NavController
 
 
@@ -76,8 +82,22 @@ fun HomeView(
                     }
                 )
                 SwipeToDismiss(state = dismissState,
-                    background = {},
-                    directions = setOf(DismissDirection.StartToEnd , DismissDirection.EndToStart ) ,
+                    background = {
+                                val  color by animateColorAsState(
+                                    if(dismissState.dismissDirection == DismissDirection.EndToStart) Color.Red else Color.Transparent ,
+                                    label = ""
+                                )
+                            val alignment = Alignment.CenterEnd
+                        Box(
+                            Modifier.fillMaxSize().background(color).padding(horizontal = 20.dp) ,
+                            contentAlignment = alignment
+                        ){
+                            Icon(Icons.Default.Delete ,
+                                contentDescription = "Delete Icon" ,
+                                tint = Color.White)
+                        }
+                    },
+                    directions = setOf(DismissDirection.EndToStart)  ,
                     dismissThresholds = {FractionalThreshold(0.25f)},
                     dismissContent = {
                         WishItem(wish = wish){
