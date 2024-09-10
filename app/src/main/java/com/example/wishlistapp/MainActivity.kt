@@ -35,3 +35,9 @@ class MainActivity : ComponentActivity() {
 // Step 3 ) once the Dao class is ready , create repository class (in our case it is WishRepository) --> in our case WishRepository class handles the CRUD operations
 
 
+
+
+
+//Dependency injection --> DI provides an object's dependencies from outside , improving modularity , testability and flexibility
+
+

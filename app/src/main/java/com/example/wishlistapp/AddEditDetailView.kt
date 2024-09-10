@@ -25,8 +25,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.wishlistapp.data.Wish
+import kotlinx.coroutines.launch
 import java.time.format.TextStyle
 
 @Composable
@@ -35,7 +41,23 @@ fun AddEditDetailView(
     viewModel: WishViewModel ,
     navController: NavController
 ){
-    Scaffold(topBar = {AppBarView(title =
+    //snackMessage is also the reason why it takes a little while until oru UI  moves over to another screen
+    val snackMessage  =  remember {
+        mutableStateOf("")
+    }
+    // since we're going to do "Add Detail"  method asynchronously we need a scope
+    // so now we can use this scope in order to run asynchronous methodssuch as storing data in our database
+    val scope = rememberCoroutineScope()
+
+    val scaffoldState = rememberScaffoldState()
+
+
+
+
+
+    Scaffold(
+        scaffoldState = scaffoldState ,
+        topBar = {AppBarView(title =
         if(id != 0L) stringResource(id = R.string.update_wish)
         else stringResource(id = R.string.add_wish)
     ) {navController.navigateUp()}
@@ -63,11 +85,32 @@ fun AddEditDetailView(
             Spacer(modifier = Modifier.height(10.dp))
             Button(onClick = {
                 if(viewModel.wishTitleState.isNotEmpty() && viewModel.wishDescriptionState.isNotEmpty()){
-                    // TODO UpdateWish
+                    if(id != 0L){
+                        // TODO UpdateWish
+
+                    }
+                    else if(id == 0L){
+                        //  AddWish
+                        viewModel.addWish(
+                            Wish(
+                            title = viewModel.wishTitleState.trim() ,
+                            description  = viewModel.wishDescriptionState.trim() )
+                        )
+                        snackMessage.value = "Wish has been created"
+                    }
                 }
                 else {
-                    // TODO AddWish
+                        // Enter fields for  wish to be created
+                        snackMessage.value = "Enter fields to create a Wish "
                 }
+                scope.launch {
+                     // scaffoldState.snackbarHostState.showSnackbar(snackMessage.value)
+                    navController.navigateUp()
+                }
+
+
+
+
             }) {
                 Text(
                     text = if(id != 0L) stringResource(id = R.string.update_wish ) else stringResource(

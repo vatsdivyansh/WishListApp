@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 // WishViewModel talks to the WishRepository which talks to the WishDao which knows the structure of data (i.e data class i.e Wish data class)
 class WishViewModel(
-    private val wishRepository: WishRepository
+    private val wishRepository: WishRepository = Graph.wishRepository
 ): ViewModel() {
 
    var wishTitleState by mutableStateOf("")
@@ -58,7 +58,6 @@ class WishViewModel(
     fun deleteAWish(wish : Wish){
         viewModelScope.launch {
             wishRepository.deleteAWish(wish = wish )
-
         }
     }
 }
